@@ -1,6 +1,6 @@
 local OrionLib = loadstring(game:HttpGet(('https://pastebin.com/raw/WRUyYTdY')))()
 
-local Window = OrionLib:MakeWindow({Name = "Rabbit Simulator 2 Script By Mr_Waduh", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "Rabbit Simulator 2 Script", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
 --[[
 Name = <string> - The name of the UI.
@@ -69,6 +69,10 @@ local Tab = Window:MakeTab({
 	Name = "Tp",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Created by Mr_Waduh"
 })
 
 Tab:AddButton({
