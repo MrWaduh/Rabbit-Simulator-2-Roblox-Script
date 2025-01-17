@@ -15,7 +15,7 @@ CloseCallback = <function> - Function to execute when the window is closed.
 ]]
 
 local Tab = Window:MakeTab({
-	Name = "Auto Farm",
+	Name = "Main",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -52,5 +52,17 @@ Name = <string> - The name of the toggle.
 Default = <bool> - The default value of the toggle.
 Callback = <function> - The function of the toggle.
 ]]
+
+
+Tab:AddButton({
+	Name = "Tp to block (equip 'fight' first)",
+	Callback = function()
+  local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+
+rootPart.CFrame = workspace.Block.Base.CFrame
+
+game:GetService("Players").LocalPlayer.Character.Fight.E:FireServer()
+  	end    
+})
 
 OrionLib:Init()
