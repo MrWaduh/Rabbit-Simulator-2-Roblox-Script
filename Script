@@ -100,4 +100,22 @@ rootPart.CFrame = workspace["Sky Carrot Quest"]["Sky Rabbit"].Head.CFrame
   	end    
 })
 
+Tab:AddButton({
+	Name = "Tp to safe spot 1",
+	Callback = function()
+  local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+
+rootPart.CFrame = workspace:GetChildren()[10].Trees:GetChildren()[6].Trunk1.BaseTrunk.CFrame
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Tp to safe spot 2",
+	Callback = function()
+  local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+
+rootPart.CFrame = workspace:GetChildren()[7].Trees:GetChildren()[9].Top.CFrame
+  	end    
+})
+
 OrionLib:Init()
