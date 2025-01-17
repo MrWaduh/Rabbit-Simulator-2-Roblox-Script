@@ -65,6 +65,12 @@ end
 	end    
 })
 
+local Tab = Window:MakeTab({
+	Name = "Tp",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
 Tab:AddButton({
 	Name = "Tp to block",
 	Callback = function()
@@ -73,6 +79,24 @@ Tab:AddButton({
 rootPart.CFrame = workspace.Block.Base.CFrame
 
 game:GetService("Players").LocalPlayer.Character.Fight.E:FireServer()
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Tp to Sky Carrot",
+	Callback = function()
+  local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+
+rootPart.CFrame = workspace["Sky Carrot Quest"].ClaimSkyCarrot.CFrame
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Tp to Sky Rabbit",
+	Callback = function()
+  local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+
+rootPart.CFrame = workspace["Sky Carrot Quest"]["Sky Rabbit"].Head.CFrame
   	end    
 })
 
