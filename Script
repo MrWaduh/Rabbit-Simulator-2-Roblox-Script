@@ -35,7 +35,7 @@ Name = <string> - The name of the section.
 ]]
 
 Tab:AddToggle({
-	Name = "Auto farm (equip Carrot first before activating)",
+	Name = "Auto farm carrot (equip Carrot first before activating)",
 	Default = false,
 	Callback = function(Value)
 	Carrot = Value
@@ -53,9 +53,20 @@ Default = <bool> - The default value of the toggle.
 Callback = <function> - The function of the toggle.
 ]]
 
+Tab:AddToggle({
+	Name = "Auto attack (equip Fight first before activating)",
+	Default = false,
+	Callback = function(Value)
+	Fight = Value
+while Fight do task.wait()
+ game:GetService("Players").LocalPlayer.Character.Fight.E:FireServer()
+
+end
+	end    
+})
 
 Tab:AddButton({
-	Name = "Tp to block (equip 'fight' first)",
+	Name = "Tp to block",
 	Callback = function()
   local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
 
