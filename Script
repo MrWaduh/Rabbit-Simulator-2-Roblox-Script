@@ -35,14 +35,12 @@ Name = <string> - The name of the section.
 ]]
 
 Tab:AddToggle({
-	Name = "Auto farm carrot (equip Carrot first before activating)",
+	Name = "Auto carrot (equip Carrot first before activating)",
 	Default = false,
 	Callback = function(Value)
 	Carrot = Value
 while Carrot do task.wait()
  game:GetService("Players").LocalPlayer.Character.Carrot.E:FireServer()
-
-game:GetService("ReplicatedStorage").RebirthMe:FireServer()
 end
 	end    
 })
@@ -64,6 +62,31 @@ while Fight do task.wait()
 end
 	end    
 })
+
+Tab:AddToggle({
+	Name = "Auto rebirth",
+	Default = false,
+	Callback = function(Value)
+	Rebirth = Value
+while Rebirth do task.wait()
+ game:GetService("ReplicatedStorage").RebirthMe:FireServer()
+
+end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto reset size",
+	Default = false,
+	Callback = function(Value)
+	Reset = Value
+while Reset do task.wait()
+ game:GetService("ReplicatedStorage").ResetSize:FireServer()
+
+end
+	end    
+})
+
 
 local Tab = Window:MakeTab({
 	Name = "Tp",
