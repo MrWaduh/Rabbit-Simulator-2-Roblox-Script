@@ -2,102 +2,17 @@ local OrionLib = loadstring(game:HttpGet(('https://pastebin.com/raw/WRUyYTdY')))
 
 local Window = OrionLib:MakeWindow({Name = "Rabbit Simulator 2 Script", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
-local Tab = Window:MakeTab({
-    Name = "Main",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
-
-Tab:AddSection({
-    Name = "Created by Mr_Waduh"
-})
-
--- Auto Carrot
-Tab:AddToggle({
-    Name = "Auto carrot",
-    Default = false,
-    Callback = function(Value)
-        Carrot = Value
-        while Carrot do
-            task.wait()
-            local player = game.Players.LocalPlayer
-            local character = player.Character or player.CharacterAdded:Wait()
-            local backpack = player:WaitForChild("Backpack")
-            local toolName = "Carrot"
-
-            local tool = backpack:FindFirstChild(toolName)
-            if tool then
-                tool.Parent = character
-                print(toolName .. " equipped!")
-            end
-
-            -- Perform carrot action
-            if character:FindFirstChild(toolName) then
-                character[toolName].E:FireServer()
-            end
-        end
-    end
-})
-
--- Auto Fight
-Tab:AddToggle({
-    Name = "Auto attack",
-    Default = false,
-    Callback = function(Value)
-        Fight = Value
-        while Fight do
-            task.wait()
-            local player = game.Players.LocalPlayer
-            local character = player.Character or player.CharacterAdded:Wait()
-            local backpack = player:WaitForChild("Backpack")
-            local toolName = "Fight"
-
-            local tool = backpack:FindFirstChild(toolName)
-            if tool then
-                tool.Parent = character
-                print(toolName .. " equipped!")
-            end
-
-            -- Perform fight action
-            if character:FindFirstChild(toolName) then
-                character[toolName].E:FireServer()
-            end
-        end
-    end
-})
-
--- Auto Rebirth
-Tab:AddToggle({
-    Name = "Auto rebirth",
-    Default = false,
-    Callback = function(Value)
-        Rebirth = Value
-        while Rebirth do
-            task.wait()
-            game:GetService("ReplicatedStorage").RebirthMe:FireServer()
-        end
-    end
-})
-
--- Auto Reset Size
-Tab:AddToggle({
-    Name = "Auto reset size",
-    Default = false,
-    Callback = function(Value)
-        Reset = Value
-        while Reset do
-            task.wait()
-            game:GetService("ReplicatedStorage").ResetSize:FireServer()
-        end
-    end
-})
-
 local TabTp = Window:MakeTab({
     Name = "Teleport",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
+TabTp:AddSection({
+    Name = "Created by Mr_Waduh"
+})
+
+-- Teleport to Block
 TabTp:AddButton({
     Name = "Tp to Block",
     Callback = function()
@@ -111,6 +26,7 @@ TabTp:AddButton({
     end
 })
 
+-- Teleport to Sky Carrot
 TabTp:AddButton({
     Name = "Tp to Sky Carrot",
     Callback = function()
@@ -124,4 +40,47 @@ TabTp:AddButton({
     end
 })
 
+-- Teleport to Sky Rabbit
+TabTp:AddButton({
+    Name = "Tp to Sky Rabbit",
+    Callback = function()
+        local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local target = workspace:FindFirstChild("Sky Carrot Quest") and workspace["Sky Carrot Quest"]:FindFirstChild("Sky Rabbit") and workspace["Sky Carrot Quest"]["Sky Rabbit"]:FindFirstChild("Head")
+        if target then
+            rootPart.CFrame = target.CFrame
+        else
+            print("Sky Rabbit not found!")
+        end
+    end
+})
+
+-- Teleport to Safe Spot 1
+TabTp:AddButton({
+    Name = "Tp to Safe Spot 1",
+    Callback = function()
+        local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local safeSpot1 = workspace:FindFirstChild("Land") and workspace.Land:FindFirstChild("Trees") and workspace.Land.Trees:FindFirstChild("BigTree") and workspace.Land.Trees.BigTree.Trunk1:FindFirstChild("BaseTrunk")
+        if safeSpot1 then
+            rootPart.CFrame = safeSpot1.CFrame
+        else
+            print("Safe Spot 1 not found!")
+        end
+    end
+})
+
+-- Teleport to Safe Spot 2
+TabTp:AddButton({
+    Name = "Tp to Safe Spot 2",
+    Callback = function()
+        local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local safeSpot2 = workspace:GetChildren()[10] and workspace:GetChildren()[10]:FindFirstChild("Trees") and workspace:GetChildren()[10].Trees:GetChildren()[6]:FindFirstChild("Trunk1") and workspace:GetChildren()[10].Trees:GetChildren()[6].Trunk1:FindFirstChild("BaseTrunk")
+        if safeSpot2 then
+            rootPart.CFrame = safeSpot2.CFrame
+        else
+            print("Safe Spot 2 not found!")
+        end
+    end
+})
+
+-- Init the UI
 OrionLib:Init()
