@@ -2,147 +2,126 @@ local OrionLib = loadstring(game:HttpGet(('https://pastebin.com/raw/WRUyYTdY')))
 
 local Window = OrionLib:MakeWindow({Name = "Rabbit Simulator 2 Script", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
---[[
-Name = <string> - The name of the UI.
-HidePremium = <bool> - Whether or not the user details shows Premium status or not.
-SaveConfig = <bool> - Toggles the config saving in the UI.
-ConfigFolder = <string> - The name of the folder where the configs are saved.
-IntroEnabled = <bool> - Whether or not to show the intro animation.
-IntroText = <string> - Text to show in the intro animation.
-IntroIcon = <string> - URL to the image you want to use in the intro animation.
-Icon = <string> - URL to the image you want displayed on the window.
-CloseCallback = <function> - Function to execute when the window is closed.
-]]
-
 local Tab = Window:MakeTab({
-	Name = "Main",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
+    Name = "Main",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
 })
 
---[[
-Name = <string> - The name of the tab.
-Icon = <string> - The icon of the tab.
-PremiumOnly = <bool> - Makes the tab accessible to Sirus Premium users only.
-]]
-
-local Section = Tab:AddSection({
-	Name = "Created by Mr_Waduh"
+Tab:AddSection({
+    Name = "Created by Mr_Waduh"
 })
 
---[[
-Name = <string> - The name of the section.
-]]
-
+-- Auto Carrot
 Tab:AddToggle({
-	Name = "Auto carrot (equip Carrot first before activating)",
-	Default = false,
-	Callback = function(Value)
-	Carrot = Value
-while Carrot do task.wait()
- game:GetService("Players").LocalPlayer.Character.Carrot.E:FireServer()
-end
-	end    
+    Name = "Auto carrot",
+    Default = false,
+    Callback = function(Value)
+        Carrot = Value
+        while Carrot do
+            task.wait()
+            local player = game.Players.LocalPlayer
+            local character = player.Character or player.CharacterAdded:Wait()
+            local backpack = player:WaitForChild("Backpack")
+            local toolName = "Carrot"
+
+            local tool = backpack:FindFirstChild(toolName)
+            if tool then
+                tool.Parent = character
+                print(toolName .. " equipped!")
+            end
+
+            -- Perform carrot action
+            if character:FindFirstChild(toolName) then
+                character[toolName].E:FireServer()
+            end
+        end
+    end
 })
 
---[[
-Name = <string> - The name of the toggle.
-Default = <bool> - The default value of the toggle.
-Callback = <function> - The function of the toggle.
-]]
-
+-- Auto Fight
 Tab:AddToggle({
-	Name = "Auto attack (equip Fight first before activating)",
-	Default = false,
-	Callback = function(Value)
-	Fight = Value
-while Fight do task.wait()
- game:GetService("Players").LocalPlayer.Character.Fight.E:FireServer()
+    Name = "Auto attack",
+    Default = false,
+    Callback = function(Value)
+        Fight = Value
+        while Fight do
+            task.wait()
+            local player = game.Players.LocalPlayer
+            local character = player.Character or player.CharacterAdded:Wait()
+            local backpack = player:WaitForChild("Backpack")
+            local toolName = "Fight"
 
-end
-	end    
+            local tool = backpack:FindFirstChild(toolName)
+            if tool then
+                tool.Parent = character
+                print(toolName .. " equipped!")
+            end
+
+            -- Perform fight action
+            if character:FindFirstChild(toolName) then
+                character[toolName].E:FireServer()
+            end
+        end
+    end
 })
 
+-- Auto Rebirth
 Tab:AddToggle({
-	Name = "Auto rebirth",
-	Default = false,
-	Callback = function(Value)
-	Rebirth = Value
-while Rebirth do task.wait()
- game:GetService("ReplicatedStorage").RebirthMe:FireServer()
-
-end
-	end    
+    Name = "Auto rebirth",
+    Default = false,
+    Callback = function(Value)
+        Rebirth = Value
+        while Rebirth do
+            task.wait()
+            game:GetService("ReplicatedStorage").RebirthMe:FireServer()
+        end
+    end
 })
 
+-- Auto Reset Size
 Tab:AddToggle({
-	Name = "Auto reset size",
-	Default = false,
-	Callback = function(Value)
-	Reset = Value
-while Reset do task.wait()
- game:GetService("ReplicatedStorage").ResetSize:FireServer()
-
-end
-	end    
+    Name = "Auto reset size",
+    Default = false,
+    Callback = function(Value)
+        Reset = Value
+        while Reset do
+            task.wait()
+            game:GetService("ReplicatedStorage").ResetSize:FireServer()
+        end
+    end
 })
 
-
-local Tab = Window:MakeTab({
-	Name = "Tp",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
+local TabTp = Window:MakeTab({
+    Name = "Teleport",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
 })
 
-local Section = Tab:AddSection({
-	Name = "Created by Mr_Waduh"
+TabTp:AddButton({
+    Name = "Tp to Block",
+    Callback = function()
+        local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local block = workspace:FindFirstChild("Block") and workspace.Block:FindFirstChild("Base")
+        if block then
+            rootPart.CFrame = block.CFrame
+        else
+            print("Block not found!")
+        end
+    end
 })
 
-Tab:AddButton({
-	Name = "Tp to block",
-	Callback = function()
-  local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
-
-rootPart.CFrame = workspace.Block.Base.CFrame
-
-game:GetService("Players").LocalPlayer.Character.Fight.E:FireServer()
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Tp to Sky Carrot",
-	Callback = function()
-  local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
-
-rootPart.CFrame = workspace["Sky Carrot Quest"].ClaimSkyCarrot.CFrame
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Tp to Sky Rabbit",
-	Callback = function()
-  local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
-
-rootPart.CFrame = workspace["Sky Carrot Quest"]["Sky Rabbit"].Head.CFrame
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Tp to safe spot 1",
-	Callback = function()
-  local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
-
-rootPart.CFrame = workspace:GetChildren()[10].Trees:GetChildren()[6].Trunk1.BaseTrunk.CFrame
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Tp to safe spot 2",
-	Callback = function()
-  local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
-
-rootPart.CFrame = workspace:GetChildren()[7].Trees:GetChildren()[9].Top.CFrame
-  	end    
+TabTp:AddButton({
+    Name = "Tp to Sky Carrot",
+    Callback = function()
+        local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local target = workspace:FindFirstChild("Sky Carrot Quest") and workspace["Sky Carrot Quest"]:FindFirstChild("ClaimSkyCarrot")
+        if target then
+            rootPart.CFrame = target.CFrame
+        else
+            print("Sky Carrot Quest not found!")
+        end
+    end
 })
 
 OrionLib:Init()
