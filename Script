@@ -1,19 +1,116 @@
 local OrionLib = loadstring(game:HttpGet(('https://pastebin.com/raw/WRUyYTdY')))()
 
-local Window = OrionLib:MakeWindow({Name = "Rabbit Simulator 2 Script", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({
+    Name = "Rabbit Simulator 2 Script",
+    HidePremium = false,
+    SaveConfig = true,
+    ConfigFolder = "OrionTest"
+})
 
-local TabTp = Window:MakeTab({
+-- Main Tab
+local MainTab = Window:MakeTab({
+    Name = "Main",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+MainTab:AddSection({
+    Name = "Created by Mr_Waduh"
+})
+
+-- Auto Carrot
+MainTab:AddToggle({
+    Name = "Auto Carrot",
+    Default = false,
+    Callback = function(Value)
+        Carrot = Value
+        while Carrot do
+            task.wait()
+            local player = game.Players.LocalPlayer
+            local character = player.Character or player.CharacterAdded:Wait()
+            local backpack = player:WaitForChild("Backpack")
+            local toolName = "Carrot"
+
+            local tool = backpack:FindFirstChild(toolName)
+            if tool then
+                tool.Parent = character
+                print(toolName .. " equipped!")
+            end
+
+            -- Perform carrot action
+            if character:FindFirstChild(toolName) then
+                character[toolName].E:FireServer()
+            end
+        end
+    end
+})
+
+-- Auto Fight
+MainTab:AddToggle({
+    Name = "Auto Attack",
+    Default = false,
+    Callback = function(Value)
+        Fight = Value
+        while Fight do
+            task.wait()
+            local player = game.Players.LocalPlayer
+            local character = player.Character or player.CharacterAdded:Wait()
+            local backpack = player:WaitForChild("Backpack")
+            local toolName = "Fight"
+
+            local tool = backpack:FindFirstChild(toolName)
+            if tool then
+                tool.Parent = character
+                print(toolName .. " equipped!")
+            end
+
+            -- Perform fight action
+            if character:FindFirstChild(toolName) then
+                character[toolName].E:FireServer()
+            end
+        end
+    end
+})
+
+-- Auto Rebirth
+MainTab:AddToggle({
+    Name = "Auto Rebirth",
+    Default = false,
+    Callback = function(Value)
+        Rebirth = Value
+        while Rebirth do
+            task.wait()
+            game:GetService("ReplicatedStorage").RebirthMe:FireServer()
+        end
+    end
+})
+
+-- Auto Reset Size
+MainTab:AddToggle({
+    Name = "Auto Reset Size",
+    Default = false,
+    Callback = function(Value)
+        Reset = Value
+        while Reset do
+            task.wait()
+            game:GetService("ReplicatedStorage").ResetSize:FireServer()
+        end
+    end
+})
+
+-- Teleport Tab
+local TeleportTab = Window:MakeTab({
     Name = "Teleport",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
-TabTp:AddSection({
+TeleportTab:AddSection({
     Name = "Created by Mr_Waduh"
 })
 
 -- Teleport to Block
-TabTp:AddButton({
+TeleportTab:AddButton({
     Name = "Tp to Block",
     Callback = function()
         local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
@@ -27,7 +124,7 @@ TabTp:AddButton({
 })
 
 -- Teleport to Sky Carrot
-TabTp:AddButton({
+TeleportTab:AddButton({
     Name = "Tp to Sky Carrot",
     Callback = function()
         local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
@@ -41,7 +138,7 @@ TabTp:AddButton({
 })
 
 -- Teleport to Sky Rabbit
-TabTp:AddButton({
+TeleportTab:AddButton({
     Name = "Tp to Sky Rabbit",
     Callback = function()
         local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
@@ -55,7 +152,7 @@ TabTp:AddButton({
 })
 
 -- Teleport to Safe Spot 1
-TabTp:AddButton({
+TeleportTab:AddButton({
     Name = "Tp to Safe Spot 1",
     Callback = function()
         local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
@@ -69,7 +166,7 @@ TabTp:AddButton({
 })
 
 -- Teleport to Safe Spot 2
-TabTp:AddButton({
+TeleportTab:AddButton({
     Name = "Tp to Safe Spot 2",
     Callback = function()
         local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
@@ -82,5 +179,38 @@ TabTp:AddButton({
     end
 })
 
--- Init the UI
+-- Ultra Auto Farm Tab
+local AutoFarmTab = Window:MakeTab({
+    Name = "Ultra Auto Farm",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+AutoFarmTab:AddToggle({
+    Name = "Sigma Boy",
+    Default = false,
+    Callback = function(Value)
+        auto = Value
+        while auto do
+            task.wait()
+            -- Auto Fire Carrot
+            game:GetService("Players").LocalPlayer.Character.Carrot.E:FireServer()
+            -- Auto Rebirth
+            game:GetService("ReplicatedStorage").RebirthMe:FireServer()
+            -- Auto Fire Fight
+            game:GetService("Players").LocalPlayer.Character.Fight.E:FireServer()
+
+            -- Teleport to Block if it exists
+            local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+            local block = workspace:FindFirstChild("Block") and workspace.Block:FindFirstChild("Base")
+            if block then
+                rootPart.CFrame = block.CFrame
+            else
+                print("No block found yet!")
+            end
+        end
+    end
+})
+
+-- Initialize UI
 OrionLib:Init()
